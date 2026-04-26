@@ -1,6 +1,0 @@
-profiles:
-  default:
-    targets:
-      vantage-ai:
-        config_synced_at: '2026-04-18T20:58:47.396623Z'
-        environment_id: env_d2p1iqp0plqyr19w6fdd1
