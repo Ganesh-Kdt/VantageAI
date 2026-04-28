@@ -1,0 +1,18 @@
+# Server & API
+fastapi
+uvicorn
+
+# AI & Multi-Agent Orchestration
+crewai
+langchain
+langchain-openai
+langchain-community
+
+# Database & GraphRAG
+neo4j
+
+# Data Ingestion & Utilities
+edgartools
+tenacity
+python-dotenv
+pydantic

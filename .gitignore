@@ -16,11 +16,6 @@ env/
 dist/
 build/test_output.mp3
 
-# Pre-cached RAG data (too large for git, generate locally)
-backend/rag/*.json
-backend/rag/*.npy
-backend/scripts/demo_cache/*.json
-
 # Node
 node_modules/
 frontend/build/
