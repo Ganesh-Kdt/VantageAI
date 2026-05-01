@@ -4,15 +4,22 @@ uvicorn
 
 # AI & Multi-Agent Orchestration
 crewai
-langchain
-langchain-openai
-langchain-community
-
-# Database & GraphRAG
-neo4j
 
 # Data Ingestion & Utilities
 edgartools
 tenacity
 python-dotenv
 pydantic
+
+pinecone
+
+beautifulsoup4
+markdownify
+sec-edgar-downloader
+pinecone-client
+llama-index-core
+llama-index-vector-stores-pinecone
+llama-index-llms-ollama
+llama-index-embeddings-ollama
+llama-index-llms-openai-like
+unstructured[html]

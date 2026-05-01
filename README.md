@@ -85,19 +85,6 @@ Add `"demo": true` to any request body to serve pre-cached data instantly.
 
 ---
 
-## Architecture
-
-```
-VoiceRun STT ──→ CrewAI Research Crew ──→ VoiceRun TTS
-                  ├── Researcher agent
-                  │     ├── You.com tool   (live web search)
-                  │     └── EDGAR tool     (SEC filings, fetch+truncate)
-                  └── Analyst agent
-                        └── Baseten LLM   (direct API — no LiteLLM)
-```
-
----
-
 ## Project structure
 
 ```

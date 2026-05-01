@@ -40,25 +40,9 @@ def analyze(req: AnalyzeRequest):
     try:
         crew = build_first_look_crew(req.company)
         result = crew.kickoff()
-        report = _parse_json_response(str(result))
-        return {"source": "live", "report": report}
+        return {"source": "live", "report": {"company_name": req.company, "strategic_summary": str(result)}}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# ── Helpers ───────────────────────────────────────────────────────────────────
-
-def _parse_json_response(text: str) -> dict:
-    """Parse JSON from LLM response, stripping markdown fences if present."""
-    text = text.strip()
-    if text.startswith("```"):
-        lines = text.split("\n")
-        text = "\n".join(lines[1:-1])  # Strip ``` fences
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        # Return raw text if JSON parsing fails
-        return {"raw": text, "parse_error": True}
-
+            raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn

@@ -3,7 +3,8 @@ from dotenv import load_dotenv
 from crewai import LLM
 from crewai.tools import tool
 from backend.agent.tools.you_com_tool import search_web
-from backend.agent.tools.edgar_tool import search_filings
+from backend.resolve_ticker import search_companies_for_dropdown
+from backend.edgar_ingest import run_rag_pipeline
 
 load_dotenv()
 
@@ -30,7 +31,22 @@ def web_search_tool(query: str) -> str:
     return search_web(query)
 
 
-@tool("SEC EDGAR search")
+@tool("SEC EDGAR Search Tool")
 def edgar_search_tool(company_name: str) -> str:
-    """Retrieve SEC EDGAR financial filing data for a public US company."""
-    return search_filings(company_name)
+    """
+    Searches a company's latest SEC 10-K filings to answer specific financial or risk-related queries.
+    Pass the company name and the specific question you want answered.
+    """
+    # 1. Resolve the company name to a Ticker
+    matches = search_companies_for_dropdown(company_name, limit=1)
+    if not matches:
+        return f"Could not find SEC ticker for company: {company_name}. They may be private."
+    
+    ticker = matches[0]['ticker']
+    
+    # 2. Run your Pinecone/Mistral RAG pipeline
+    try:
+        rag_result = run_rag_pipeline(company_name, ticker)
+        return rag_result
+    except Exception as e:
+        return f"Error retrieving data for {ticker}: {str(e)}"
